@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cherry Doll Coach</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F04465">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>Cherry Doll</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-item active" data-view="dashboard"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="#" class="nav-item" data-view="tasks"><i class="fa-solid fa-list-check"></i> Aufgaben</a>
+                <a href="#" class="nav-item" data-view="school"><i class="fa-solid fa-graduation-cap"></i> Schule</a>
+                <a href="#" class="nav-item" data-view="applications"><i class="fa-solid fa-briefcase"></i> Bewerbungen</a>
+                <a href="#" class="nav-item" data-view="fitness"><i class="fa-solid fa-dumbbell"></i> Fitness & Lesen</a>
+                <a href="#" class="nav-item" data-view="progress"><i class="fa-solid fa-chart-line"></i> Ziele & Statistik</a>
+                <a href="#" class="nav-item" data-view="chat"><i class="fa-solid fa-robot"></i> KI-Coach</a>
+                <a href="#" class="nav-item" data-view="settings"><i class="fa-solid fa-gear"></i> Einstellungen</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <h1 id="welcome-title">Guten Tag! 🍒</h1>
+                    <p id="current-date-display">Dienstag, 27. Oktober 2026</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-energy" id="energy-toggle-btn" title="Energie-Modus anpassen">
+                        <i class="fa-solid fa-battery-three-quarters"></i> <span id="energy-label">Normale Energie</span>
+                    </button>
+                    <button class="btn-light-plan" id="light-plan-btn" title="Leichterer Tagesplan bei Müdigkeit">
+                        <i class="fa-solid fa-feather"></i> Leichter Plan
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <!-- VIEW: DASHBOARD -->
+                <section id="view-dashboard" class="view-section active">
+                    <div class="dashboard-grid">
+                        <div class="card card-welcome">
+                            <h3>Dein persönlicher Coach</h3>
+                            <p id="coach-daily-quote">„Schritt für Schritt zu deinem Abschluss und deiner Unabhängigkeit. Pass heute gut auf deine Energie auf!“</p>
+                            <div class="quick-stats">
+                                <div class="stat-box">
+                                    <span class="stat-num" id="stat-tasks-done">0/0</span>
+                                    <span class="stat-label">Aufgaben heute</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-num" id="stat-apps-week">0/5</span>
+                                    <span class="stat-label">Bewerbungen (Woche)</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-num" id="stat-reading">0/50</span>
+                                    <span class="stat-label">Gelesene Seiten</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3><i class="fa-solid fa-star"></i> Nächste wichtige Klausur</h3>
+                            <div id="next-exam-widget" class="highlight-box">
+                                <!-- Dynamisch gefüllt -->
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3><i class="fa-solid fa-bullseye"></i> Nächste sinnvolle Aufgabe</h3>
+                            <div id="next-smart-task" class="highlight-box">
+                                <!-- Dynamisch gefüllt -->
+                            </div>
+                        </div>
+
+                        <div class="card full-width">
+                            <div class="card-header-flex">
+                                <h3>Heutige Aufgaben</h3>
+                                <button class="btn-small" onclick="switchView('tasks')">Alle anzeigen</button>
+                            </div>
+                            <div id="dashboard-task-list" class="task-mini-list">
+                                <!-- Dynamisch -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: TASKS -->
+                <section id="view-tasks" class="view-section">
+                    <div class="section-header">
+                        <h2>Aufgabenverwaltung</h2>
+                        <button class="btn-primary" id="open-task-modal"><i class="fa-solid fa-plus"></i> Neue Aufgabe</button>
+                    </div>
+                    <div class="filters-bar">
+                        <select id="filter-category">
+                            <option value="all">Alle Lebensbereiche</option>
+                            <option value="Schule">Schule</option>
+                            <option value="Beruf">Beruf & Bewerbung</option>
+                            <option value="Fitness">Fitness & Gesundheit</option>
+                            <option value="Persönlich">Persönlich</option>
+                        </select>
+                        <select id="filter-status">
+                            <option value="all">Alle Status</option>
+                            <option value="open">Offen</option>
+                            <option value="done">Erledigt</option>
+                        </select>
+                    </div>
+                    <div class="task-list-container" id="full-task-list">
+                        <!-- Dynamisch -->
+                    </div>
+                </section>
+
+                <!-- VIEW: SCHOOL -->
+                <section id="view-school" class="view-section">
+                    <div class="section-header">
+                        <h2>Schule & Klausuren (Abendgymnasium)</h2>
+                        <button class="btn-primary" id="add-exam-btn"><i class="fa-solid fa-plus"></i> Klausur / Termin eintragen</button>
+                    </div>
+                    <div class="subjects-grid" id="subjects-container">
+                        <!-- Fächerkarten werden hier geladen -->
+                    </div>
+                    <div class="card mt-4">
+                        <h3>Anstehende Klausuren & Tests</h3>
+                        <div id="exams-list-container"></div>
+                    </div>
+                </section>
+
+                <!-- VIEW: APPLICATIONS -->
+                <section id="view-applications" class="view-section">
+                    <div class="section-header">
+                        <h2>Beruf & Bewerbungen (Ziel: 5/Woche)</h2>
+                        <button class="btn-primary" id="add-app-btn"><i class="fa-solid fa-plus"></i> Bewerbung erfassen</button>
+                    </div>
+                    <div class="progress-bar-container card mb-3">
+                        <div class="progress-info">
+                            <span>Wochenziel Fortschritt</span>
+                            <span id="app-goal-text">0 von 5 Bewerbungen</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="app-progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="table-container card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Unternehmen</th>
+                                    <th>Stelle</th>
+                                    <th>Datum</th>
+                                    <th>Status</th>
+                                    <th>Nächste Aktion</th>
+                                    <th>Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="applications-table-body">
+                                <!-- Dynamisch -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- VIEW: FITNESS -->
+                <section id="view-fitness" class="view-section">
+                    <div class="section-header">
+                        <h2>Fitness, Gesundheit & Lesen</h2>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3><i class="fa-solid fa-book-open"></i> Lesefortschritt</h3>
+                            <p>Ziel: 50 Seiten pro Tag</p>
+                            <div class="reading-tracker-box">
+                                <input type="number" id="reading-input" placeholder="Gelesene Seiten heute">
+                                <button class="btn-primary" id="save-reading-btn">Speichern</button>
+                            </div>
+                            <p class="mt-2">Heute bereits gelesen: <strong id="pages-read-today">0</strong> Seiten</p>
+                        </div>
+                        <div class="card">
+                            <h3><i class="fa-solid fa-dumbbell"></i> Training & Schonung</h3>
+                            <p>Ziel: 4 Trainingstage / Woche (mit Rücksicht auf Narkolepsie & Knie)</p>
+                            <div id="training-status-box">
+                                <!-- Dynamisch -->
+                            </div>
+                            <button class="btn-secondary mt-2" id="log-training-btn">Heutiges Training abhaken</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: PROGRESS -->
+                <section id="view-progress" class="view-section">
+                    <div class="section-header">
+                        <h2>Ziele & Wochenrückblick</h2>
+                    </div>
+                    <div class="card">
+                        <h3>Wochenanalyse & Coach-Feedback</h3>
+                        <div id="weekly-review-box">
+                            <p>Lade Statistiken...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: CHAT -->
+                <section id="view-chat" class="view-section">
+                    <div class="section-header">
+                        <h2>KI-Coach & Sprachassistent</h2>
+                    </div>
+                    <div class="card chat-card">
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="chat-msg coach">
+                                Hallo! Ich bin dein lokaler Cherry-Doll-Coach. Du kannst mir Befehle geben wie: 
+                                <em>"Füge Aufgabe Mathe lernen hinzu"</em>, <em>"Zeige offene Aufgaben"</em> oder <em>"Leichter Plan"</em>.
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-input" placeholder="Schreibe deinen Befehl an den Coach...">
+                            <button id="chat-send-btn" class="btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: SETTINGS -->
+                <section id="view-settings" class="view-section">
+                    <div class="section-header">
+                        <h2>Einstellungen & Datensicherung</h2>
+                    </div>
+                    <div class="card">
+                        <h3>Datenexport & Import</h3>
+                        <p>Deine Daten werden lokal in deinem Browser gespeichert. Du kannst sie jederzeit als JSON sichern oder wiederherstellen.</p>
+                        <div class="button-group mt-3">
+                            <button class="btn-primary" id="export-data-btn"><i class="fa-solid fa-download"></i> Daten exportieren</button>
+                            <label class="btn-secondary file-upload-label">
+                                <i class="fa-solid fa-upload"></i> Daten importieren <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                            </label>
+                        </div>
+                        <hr class="mt-4 mb-4">
+                        <h3>App zurücksetzen</h3>
+                        <button class="btn-danger" id="reset-data-btn">Alle Daten auf Startwerte zurücksetzen</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Navigation Bar -->
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-item active" data-view="dashboard"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="#" class="mobile-nav-item" data-view="tasks"><i class="fa-solid fa-list-check"></i><span>Aufgaben</span></a>
+        <a href="#" class="mobile-nav-item" data-view="school"><i class="fa-solid fa-graduation-cap"></i><span>Schule</span></a>
+        <a href="#" class="mobile-nav-item" data-view="applications"><i class="fa-solid fa-briefcase"></i><span>Job</span></a>
+        <a href="#" class="mobile-nav-item" data-view="chat"><i class="fa-solid fa-robot"></i><span>Coach</span></a>
+    </nav>
+
+    <!-- Modal für Aufgabe hinzufügen -->
+    <div class="modal" id="task-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-task-modal">&times;</span>
+            <h3>Neue Aufgabe hinzufügen</h3>
+            <form id="task-form">
+                <div class="form-group">
+                    <label>Titel</label>
+                    <input type="text" id="task-title" required placeholder="z. B. Vokabeln Französisch lernen">
+                </div>
+                <div class="form-group">
+                    <label>Lebensbereich</label>
+                    <select id="task-category">
+                        <option value="Schule">Schule</option>
+                        <option value="Beruf">Beruf</option>
+                        <option value="Fitness">Fitness & Gesundheit</option>
+                        <option value="Persönlich">Persönlich</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Datum</label>
+                        <input type="date" id="task-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Priorität</label>
+                        <select id="task-priority">
+                            <option value="Hoch">Hoch</option>
+                            <option value="Mittel" selected>Mittel</option>
+                            <option value="Tief">Tief</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary mt-3">Aufgabe speichern</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

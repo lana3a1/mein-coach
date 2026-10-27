@@ -272,6 +272,35 @@
   </div>
 </section>
 
+<section id="daily-schedule" class="coach-card">
+  <p class="coach-label">🗓️ DEIN TAGESPLAN</p>
+  <h2>Mein Tag, mein Tempo</h2>
+
+  <p id="schedule-date"></p>
+
+  <div id="schedule-list">
+    <div class="schedule-item">
+      <label for="schedule-start">Startzeit</label>
+      <input id="schedule-start" type="time" value="09:00">
+    </div>
+
+    <div class="schedule-item">
+      <label for="schedule-energy">Meine Energie</label>
+      <select id="schedule-energy">
+        <option value="low">Niedrig – ich brauche mehr Pausen</option>
+        <option value="medium" selected>Mittel</option>
+        <option value="high">Hoch – ich schaffe mehr</option>
+      </select>
+    </div>
+
+    <button type="button" onclick="generateDailySchedule()">
+      ✨ Meinen Zeitplan erstellen
+    </button>
+
+    <div id="schedule-results" aria-live="polite"></div>
+  </div>
+</section>
+
         </main>
     </div>
 

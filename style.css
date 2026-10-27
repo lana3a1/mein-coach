@@ -296,3 +296,80 @@ body {
         gap: 12px;
     }
 }
+
+/* Cherry Doll – Persönlicher Coach */
+
+.coach-card {
+  background: #FFF0ED;
+  border: 3px solid #F04465;
+  border-radius: 24px;
+  padding: 24px;
+  margin: 24px 0;
+  color: #682842;
+  box-shadow: 6px 6px 0 #FFB3D2;
+}
+
+.coach-label {
+  color: #F04465;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.coach-card h2 {
+  color: #682842;
+  font-size: 26px;
+  margin: 12px 0 20px;
+}
+
+.coach-task {
+  background: #FFFFFF;
+  border: 2px solid #FFB3D2;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.coach-task h3 {
+  color: #F04465;
+  font-size: 21px;
+  margin: 12px 0;
+}
+
+.coach-task p {
+  line-height: 1.6;
+}
+
+.coach-task button {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #F04465;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.coach-task button:hover {
+  background: #682842;
+  transform: translateY(-2px);
+}
+
+.coach-task button:focus-visible {
+  outline: 3px solid #682842;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .coach-card {
+    padding: 16px;
+  }
+
+  .coach-card h2 {
+    font-size: 23px;
+  }
+}
+
